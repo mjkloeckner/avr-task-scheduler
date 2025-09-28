@@ -9,7 +9,6 @@ extern "C" {
 
 #include <stdint.h>
 
-void scheduler_init(void);
 void scheduler_update(uint32_t t_ms);
 void scheduler_append_task(void (*update_func)(void), uint16_t update_interval);
 

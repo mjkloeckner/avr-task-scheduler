@@ -18,11 +18,6 @@ typedef struct {
 
 static scheduler_t scheduler = {0};
 
-void scheduler_init(void) {
-    scheduler.task_cnt = 0;
-    scheduler.t_ms_dt = 0;
-}
-
 // update every 1 ms
 void scheduler_update(uint32_t t_ms) {
     if ((t_ms - scheduler.t_ms_dt) < 1) {
@@ -44,7 +39,8 @@ void scheduler_update(uint32_t t_ms) {
 
 void scheduler_append_task(void (*update_func)(void), uint16_t update_interval) {
     scheduler.tasks[scheduler.task_cnt].task_update = update_func;
-    scheduler.tasks[scheduler.task_cnt].update_interval = update_interval - 1;
+    scheduler.tasks[scheduler.task_cnt].update_interval =
+        (update_interval == 0) ? update_interval : update_interval - 1;
     scheduler.task_cnt++;
 }
 
