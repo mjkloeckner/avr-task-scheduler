@@ -9,19 +9,14 @@ extern "C" {
 
 typedef struct {
     void (*task_update)(void);
-    uint16_t update_interval;
+    uint16_t period;
     uint8_t task_id;
     uint16_t ticks;
 } task_t;
 
-typedef struct {
-    uint32_t t_ms_dt;
-    uint8_t task_cnt;
-    task_t *tasks;
-} scheduler_t;
-
 void scheduler_init(task_t *tasks, uint8_t task_count);
 void scheduler_update(uint32_t t_ms);
+void scheduler_set_task_period(uint8_t task_id, uint16_t new_period);
 
 #ifdef __cplusplus
 }
