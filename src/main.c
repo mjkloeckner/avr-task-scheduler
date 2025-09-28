@@ -24,35 +24,21 @@ void read_button(void) {
     }
 }
 
-/*
-typedef enum {
-    TOGGLE_LED_1 = 0,
-    TOGGLE_LED_2,
-    READ_BUTTON,
-    TASKS_COUNT
-} task_id_e;
-*/
-
 task_t tasks[] = {
     { toggle_led_1, 1000 },
     { toggle_led_2, 500 },
     { read_button,  0 }
 };
 
-const uint8_t tasks_count = sizeof(tasks)/sizeof(tasks[0]);
-
-void setup(void) {
-    DDRD = (DDRD | (1<<LED_1_PIN) | (1<<LED_2_PIN) | (1<<LED_3_PIN))
-            & ~(1<<BTN_PIN);
-
+void io_setup(void) {
+    DDRD = (DDRD | (1<<LED_1_PIN) | (1<<LED_2_PIN) | (1<<LED_3_PIN)) & ~(1<<BTN_PIN);
     PORTD |= (1<<BTN_PIN);
-
-    millis_init();
-    scheduler_init(tasks, tasks_count);
 }
 
 int main(void) {
-    setup();
+    io_setup();
+    millis_init();
+    scheduler_init(tasks, sizeof(tasks)/sizeof(tasks[0]));
 
     while(1) {
         scheduler_update(millis());
