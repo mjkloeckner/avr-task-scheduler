@@ -25,10 +25,11 @@ typedef enum {
 } task_id_e;
 
 task_t tasks[] = {
-    { toggle_led_1,  1000,  TOGGLE_LED_1_ID },
-    { toggle_led_2,   500,  TOGGLE_LED_2_ID },
-    { read_button_a,    0,    READ_BTN_A_ID },
-    { read_button_b,    0,    READ_BTN_B_ID }
+    //   on_update  period                id
+    { toggle_led_1,   1000,  TOGGLE_LED_1_ID },
+    { toggle_led_2,    500,  TOGGLE_LED_2_ID },
+    { read_button_a,     0,    READ_BTN_A_ID },
+    { read_button_b,     0,    READ_BTN_B_ID }
 };
 
 void io_setup(void) {
@@ -43,7 +44,8 @@ void io_setup(void) {
 int main(void) {
     io_setup();
 
-    millis_init(&scheduler_inc_update_tick);
+    millis_init(&scheduler_update_tick);
+
     scheduler_init(tasks, sizeof(tasks)/sizeof(tasks[0]));
 
     while(1) {

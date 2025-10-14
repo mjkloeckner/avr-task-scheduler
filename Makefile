@@ -7,7 +7,7 @@ LIBS := $(SRC_DIR/*.h)
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(BIN_DIR)/%.o,$(SRCS))
 
 CC := avr-gcc
-CFLAGS := -Wall -Os -DF_CPU=16000000UL -mmcu=atmega328p
+CFLAGS := -Wall -Wextra -pedantic -std=c99 -Os -mmcu=atmega328p
 
 .PHONY: all
 
@@ -15,7 +15,7 @@ all: $(BIN_DIR) $(BIN_DIR)/main.hex
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) \
-		-c $< -o $@
+		-o $@ -c $<
 
 $(BIN_DIR)/main.elf: $(OBJS)
 	$(CC) $(CFLAGS) \
@@ -25,8 +25,7 @@ $(BIN_DIR)/main.hex: $(BIN_DIR)/main.elf
 	avr-objcopy -O ihex -R .eeprom $(BIN_DIR)/main.elf $(BIN_DIR)/main.hex
 
 upload: $(BIN_DIR)/main.hex
-	avrdude -F -V -c arduino -p ATMEGA328P \
-		-P $(PORT) -b 115200 -U flash:w:$(BIN_DIR)/main.hex
+	avrdude -F -V -c arduino -p ATMEGA328P -P $(PORT) -b 115200 -U flash:w:$(BIN_DIR)/main.hex
 
 $(BIN_DIR):
 	@if [ ! -d "$(BIN_DIR)" ]; then \
