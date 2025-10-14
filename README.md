@@ -4,8 +4,8 @@ This is a simple program that implements a task scheduler. It executes a series
 of tasks attached to the scheduler after their specified task period (in
 milliseconds) has passed.
 
-In the example four leds controlled, two blinking at different rates and two
-controlled by buttons.
+In the example, four leds are controlled: two blink at different rates, and the
+other two controlled by buttons.
 
 ## Dependencies
 
