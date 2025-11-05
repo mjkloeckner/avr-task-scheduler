@@ -27,7 +27,7 @@ $ ls /dev/tty*
 ```
 
 Often appears as `/dev/ttyUSB*` or `/dev/ttyACM*`, by default `/dev/ttyUSB0` is
-used, to override this execute make asigning the corret port to the `PORT`
+used, to override this execute make assigning the corred port to the `PORT`
 shell variable, for example:
 
 ```console
